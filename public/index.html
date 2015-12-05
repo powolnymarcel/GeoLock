@@ -1,10 +1,10 @@
 <!doctype html>
-<!-- Declares meanMapApp as the starting Angular module -->
+<!-- Declare geoLoc2 en tant que module angular -->
 <html class="no-js" ng-app="geoLoc2">
 <head>
     <meta charset="utf-8">
-    <title>Scotch MEAN Map</title>
-    <meta name="description" content="An example demonstrating Google Map integration with MEAN Apps">
+    <title>GeoLoc2</title>
+    <meta name="description" content="geoloc2">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSS -->
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
@@ -47,7 +47,6 @@
 				<li>Voila, le restaurant a été ajouté :)</li>
 			</ul>
 			<form name ="addForm" novalidate>
-				<!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
 				<div class="form-group">
 					<label for="nom">Nom <span class="badge">Champ requis</span></label>
 					<input type="text" class="form-control" id="nom" placeholder="Le nom" ng-model="formData.nom" required>
@@ -55,25 +54,25 @@
 				<label class="radio control-label">Type</label>
 				<div class="radio">
 					<label>
-						<input type="radio" name="optionsRadios" id="radiomale" value="Pizza" ng-model="formData.type">
+						<input type="radio" name="optionsRadios"  value="Pizza" ng-model="formData.type">
 						Pizza
 					</label>
 				</div>
 				<div class="radio" required>
 					<label>
-						<input type="radio" name="optionsRadios" id="radiofemale" value="Frites" ng-model="formData.type">
+						<input type="radio" name="optionsRadios"  value="Frites" ng-model="formData.type">
 						Frites
 					</label>
 				</div>
 				<div class="radio">
 					<label>
-						<input type="radio" name="optionsRadios" id="radioother" value="Pita" ng-model="formData.type">
+						<input type="radio" name="optionsRadios" value="Pita" ng-model="formData.type">
 						Pita
 					</label>
 				</div>
 				<div class="radio">
 					<label>
-						<input type="radio" name="optionsRadios" id="radiorestaurant" value="Restaurant" ng-model="formData.type">
+						<input type="radio" name="optionsRadios"  value="Restaurant" ng-model="formData.type">
 						Restaurant
 					</label>
 				</div>
@@ -86,17 +85,15 @@
 					<input type="text" class="form-control" id="longitude" value="-98.350" ng-model="formData.longitude" readonly>
 				</div>
 				<div class="form-group">
-					<!-- Note RefreshLoc button tied to addCtrl. This requests a refresh of the HTML5 verified location. -->
 					<label for="verified">Localisation vérifiée? <span><button ng-click="refreshLoc()" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-refresh"></span></button></span></label>
 					<input type="text" class="form-control" id="verified" placeholder= "Localisation précise" ng-model="formData.htmlverified" readonly>
 				</div>
-				<!-- Submit button. Note that its tied to createUser() function from addCtrl. Also note ng-disabled logic which prevents early submits.  -->
 				<button type="submit" class="btn btn-danger btn-block" ng-click="creerRestaurant()" ng-disabled="addForm.$invalid">Envoyer</button>
 			</form>
-			<div class="col-xs-4"><!--map-canvas will be postioned here--></div>
+			<div class="col-xs-4"><!--Le canvas de la map sera ici --> </div>
 
 		</div>
 	</div>
-	<!-- end template -->
+	<!-- fin template -->
 </body>
 </html>
