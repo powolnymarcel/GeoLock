@@ -43,36 +43,44 @@ module.exports = function(app) {
 
 
 
-	// Retrieves JSON records for all users who meet a certain set of query conditions
+	//Récupère les enregistrements JSON de tous les restaurants qui répondent aux reglès de "requetage" ci dessous
 	app.post('/requete/', function(req, res){
 
-		// Grab all of the query parameters from the body.
+		//Récupérer tous les parametres de requete contenue dans le body de la réponse
 		var lat             = req.body.latitude;
 		var long            = req.body.longitude;
 		var distance        = req.body.distance;
+		var name         	= req.body.name;
 
-		// Opens a generic Mongoose Query. Depending on the post body we will...
+		// Initialize une requete Mongoose génerique. La requete dépendra du body du POST
 		var query = Restos.find({});
 
-		// ...include filter by Max Distance (converting miles to meters)
+		// Filtrer par distance maximale (conversion de miles en metre -- SE DOCUMENTER LA DESSUS)
 		if(distance){
 
-			// Using MongoDB's geospatial querying features. (Note how coordinates are set [long, lat]
+			// Fonctionnalité de requetage géospatiale de MongoDB. ( Info: les coordonnéees sont inversées, c'est ainsi...)
 			query = query.where('location').near({ center: {type: 'Point', coordinates: [long, lat]},
 
-				// Converting meters to miles. Specifying spherical geometry (for globe)
+				//Conversion des metres en miles. Spécification de la géométrie "spherical" pour le globe
 				maxDistance: distance * 1609.34, spherical: true});
 		}
 
-		// ... Other queries will go here ...
+		if(name){
+			//Avec expression régulière pour indiquer case insensitive :)
+			query = query.find({'nom':{$regex: new RegExp('^' + name.toLowerCase(), 'i')}});
+				//Pour compter le nombre de
+			// .count()
+		}
 
-		// Execute Query and Return the Query Results
-		query.exec(function(err, users){
+		// ... Autres requetes à imaginer ici :
+
+		//Exécute la requete et renvoie le résultat de la requete
+		query.exec(function(err, restos){
 			if(err)
 				res.send(err);
 
-			// If no errors, respond with a JSON of all users that meet the criteria
-			res.json(users);
+			//Si pas d'erreurs, reponse avec un JSON de tous les restaurants matchant les critères de recherche.
+			res.json(restos);
 		});
 	});
 
