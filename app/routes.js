@@ -51,6 +51,10 @@ module.exports = function(app) {
 		var long            = req.body.longitude;
 		var distance        = req.body.distance;
 		var name         	= req.body.name;
+		var pizza            = req.body.pizza;
+		var frites          = req.body.frites;
+		// var tout           = req.body.tout;
+		// var reqVerified     = req.body.reqVerified;
 
 		// Initialize une requete Mongoose génerique. La requete dépendra du body du POST
 		var query = Restos.find({});
@@ -58,9 +62,8 @@ module.exports = function(app) {
 		// Filtrer par distance maximale (conversion de miles en metre -- SE DOCUMENTER LA DESSUS)
 		if(distance){
 
-			// Fonctionnalité de requetage géospatiale de MongoDB. ( Info: les coordonnéees sont inversées, c'est ainsi...)
+			// Fonctionnalité de requetage géospatiale de MongoDB. ( Info: les coordonnéees c-a-d lat & lng sont inversées, c'est ainsi...)
 			query = query.where('location').near({ center: {type: 'Point', coordinates: [long, lat]},
-
 				//Conversion des metres en miles. Spécification de la géométrie "spherical" pour le globe
 				maxDistance: distance * 1609.34, spherical: true});
 		}
@@ -68,11 +71,66 @@ module.exports = function(app) {
 		if(name){
 			//Avec expression régulière pour indiquer case insensitive :)
 			query = query.find({'nom':{$regex: new RegExp('^' + name.toLowerCase(), 'i')}});
-				//Pour compter le nombre de
+			//Pour compter le nombre de
 			// .count()
 		}
 
-		// ... Autres requetes à imaginer ici :
+		// ...Filtre par type
+		if(pizza || frites ){
+			if(pizza){
+				query.or([{ 'type': {$regex: new RegExp('^' + pizza.toLowerCase(), 'i')}}]);
+			}
+			if(frites){
+				query.or([{ 'type': {$regex: new RegExp('^' + frites.toLowerCase(), 'i')}}]);
+			}
+		}
+
+	//	// **************************************************************... EXEMPLE Autres requetes ici :
+
+	//  // ...include filter by Min Age
+	//  if(minAge){
+	//  	query = query.where('age').gte(minAge);
+	//  }
+
+	//  // ...include filter by Max Age
+	//  if(maxAge){
+	//  	query = query.where('age').lte(maxAge);
+	//  }
+
+	//  // ...include filter by Favorite Language
+	//  if(favLang){
+	//  	query = query.where('favlang').equals(favLang);
+	//  }
+
+	//  // ...include filter for HTML5 Verified Locations
+	//  if(reqVerified){
+	//  	query = query.where('htmlverified').equals("Yep (Thanks for giving us real data!)");
+	//  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 		//Exécute la requete et renvoie le résultat de la requete
 		query.exec(function(err, restos){
@@ -83,6 +141,8 @@ module.exports = function(app) {
 			res.json(restos);
 		});
 	});
+
+
 
 
 };

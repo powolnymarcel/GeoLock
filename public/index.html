@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="style.css"/>
 
     <!-- Google Maps API -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlmF8QxwaFxY2Dx2q4zAoQVXFB5r4kBAY"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlmF8QxwaFxY2Dx2q4zAoQVXFB5r4kBAY&libraries=places"></script>
 
     <!-- JS Source -->
     <script src="../bower_components/jquery/dist/jquery.js"></script>
@@ -20,7 +20,8 @@
     <script src="../bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
     <!-- Angular Source -->
     <script src="js/app.js"></script>
-    <script src="js/addCtrl.js"></script>
+	<script src="js/addCtrl.js"></script>
+	<script src="js/requeteCtrl.js"></script>
     <script src="js/gservice.js"></script>
 	<script src="js/laNavigation.directive.js"></script>
 	<script src="js/inutileCtrl.js"></script>
@@ -34,25 +35,14 @@
 <h2>
 	Comment faire?
 </h2>
-			<ul>
-				<li>
-					Si supportée et autorisée dans les parametre de localisation de votre appareil, partagez votre géolocalisation.
-				</li>
-				<li>Si pas d'autorisations, la localisation par defaut est à Bxl </li>
-				<li>
-					Choisir une localisation pou un nouveau restaurant, le personnage se transforme alors en marqueur google map
-				</li>
-				<li>Indiquez un nom</li>
-				<li>Choisissez un type de restaurant</li>
-				<li>Envoyer</li>
-				<li>Voila, le restaurant a été ajouté :)</li>
-			</ul>
+
 			<!-- Side Panel -- Now Handled by ng-view -->
 			<div ng-view></div>
 			<div class="col-xs-4"><!--Le canvas de la map sera ici --> </div>
 
 		</div>
 	</div>
+</div>
 	<!-- fin template -->
 </body>
 </html>

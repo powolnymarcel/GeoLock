@@ -2,6 +2,39 @@
 var addCtrl = angular.module('addCtrl', ['geolocation', 'gservice']);
 addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, gservice){
 
+
+	//AUTOCOMPLETE INPUT AVEC GOOGLE MAP, utilisation de la librairies "places"
+	// ----------------------------------------------------------------------------
+	var autocomplete;
+	// On cible le input dans lequel l'utilisateur indiquera la ville voulue
+	var input = document.getElementById('location');
+	//Les options permettent d'indiquer à la librairie que l'on veut lister les villes de Belgique
+	var options = {
+		componentRestrictions: {'country':'be'},
+		types: ['(regions)'] // (cities)
+	};
+
+	//autocomplete remplira le input avec les villes correspondant à la recherche
+	autocomplete = new google.maps.places.Autocomplete(input,options);
+
+
+	google.maps.event.addListener(autocomplete, 'place_changed', function () {
+		place = autocomplete.getPlace();
+		console.log(place);
+		console.log(place.geometry.location.lat());
+		console.log(place.geometry.location.lng());
+		$scope.formData.latit=place.geometry.location.lat();
+		$scope.formData.longit=place.geometry.location.lng();
+		$scope.formData.htmlverified = "Selection manuelle activée.";
+
+		//Appellez le service gservice et lui indiquer la position voulue par l'utilisateur
+		gservice.refresh(place.geometry.location.lat(), place.geometry.location.lng());
+
+	});
+
+
+
+
     // Initialisation des variables
     // ----------------------------------------------------------------------------
     $scope.formData = {};
@@ -38,7 +71,7 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
         $scope.$apply(function(){
             $scope.formData.latitude = parseFloat(gservice.clickLat).toFixed(3);
             $scope.formData.longitude = parseFloat(gservice.clickLong).toFixed(3);
-            $scope.formData.htmlverified = "Données automatique précise non fournies";
+			$scope.formData.htmlverified = "Données automatique précise non fournies";
         });
     });
 
@@ -81,4 +114,6 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
                 console.log('Error: ' + data.message);
             });
     };
+
+
 });

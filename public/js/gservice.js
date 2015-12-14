@@ -3,6 +3,7 @@ angular.module('gservice', [])
 	//La factory a besoin du service $http
     .factory('gservice', function($rootScope, $http){
 
+
         // Initialisation des variables
         // -------------------------------------------------------------
         // Le service que notre factory va renvoyer
@@ -43,7 +44,8 @@ angular.module('gservice', [])
 				console.log(locations);
 				//Ensuite initialisation de la carte
                 initialize(latitude, longitude);
-            }).error(function(){});
+            }).error(function(){}
+			);
         };
 
         // Fonctions privées

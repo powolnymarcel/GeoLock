@@ -1,20 +1,29 @@
+<script src="js/autocomplete.js"></script>
+
 <form name ="queryForm">
 
-	<!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
+
+
 	<div class="form-group">
-		<label for="latitude">Votre Latitude</label>
-		<input type="text" class="form-control" id="latitude" placeholder="39.5" ng-model="formData.latitude" readonly>
-	</div>
-	<div class="form-group">
-		<label for="longitude">Votre Longitude</label>
-		<input type="text" class="form-control" id="longitude" placeholder="-98.35" ng-model="formData.longitude" readonly>
-	</div>
-	<div class="form-group">
-		<label for="distance">Distance maximale de recherche.</label>
-		<input type="text" class="form-control" id="distance" placeholder="500" ng-model="formData.distance">
+		<input type="text" id="location" name="location" placeholder="City or ZIP code">
+
+		<input type="text" id="lat" value="39" ng-model="formData.latit" readonly>
+		<input type="text" id="lng" value="10" ng-model="formData.longit" readonly>
 	</div>
 
-	<!-- Note ng-true-value which translates check values into explicit gender strings -->
+	<div class="form-group">
+		<label for="distance">Distance maximale de recherche.</label>
+		<input type="text" class="form-control" id="distance" placeholder="3Km" ng-model="formData.distance">
+	</div>
+
+	<label> Distance </label>
+	<div class="range-slider">
+		<input class="input-range" type="range" value="1" min="1" max="20" ng-model="formData.distance">
+		<span class="range-value"></span>
+		<input type="submit" value="GO" id="go">
+
+	</div>
+	<br>
 	<label>Type de cuisine</label>
 	<div class="form-group">
 		<label class="checkbox-inline">
@@ -25,23 +34,12 @@
 			<input type="checkbox" name="optionsRadios" id="checkfemale" value="Frites" ng-model="formData.frites" ng-true-value="'Frites'">
 			Frites
 		</label>
+		<!--
 		<label class="checkbox-inline">
 			<input type="checkbox" name="optionsRadios" id="checkother" value="Tout" ng-model="formData.tout" ng-true-value="'Tout'">
 			Tout
 		</label>
-	</div>
-	<div class="form-group">
-		<label for="minage">Age minimum(inutile pour cet exercice)</label>
-		<input type="number" class="form-control" id="minage" placeholder="5" ng-model="formData.minage">
-	</div>
-	<div class="form-group">
-		<label for="maxage">Age maximum (inutile pour cet exercice)</label>
-		<input type="number" class="form-control" id="maxage" placeholder="80" ng-model="formData.maxage">
-	</div>
-	<div class="form-group">
-		<label for="favlang">Langue favorite (inutile pour cet exercice)</label>
-		<input type="text" class="form-control" id="favlang" placeholder="Français" ng-model="formData.favlang">
-	</div>
+	--></div><!--
 	<div class="form-group">
 		<div class="checkbox">
 			<label>
@@ -49,7 +47,7 @@
 			</label>
 		</div>
 	</div>
-
+	-->
 	<!-- Query button. Note that its tied to queryUsers() function from queryCtrl.  -->
 	<button type="submit" class="btn btn-danger btn-block" ng-click="requeteRestos()">Rechercher</button>
 </form>
