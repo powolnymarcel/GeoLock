@@ -60,7 +60,6 @@ requeteCtrl.controller('requeteCtrl', function($scope, $log, $http, $rootScope, 
 		});
 	});
 
-	// Take query parameters and incorporate into a JSON queryBody
 	//Recuperer les paramètres de recherche et les incorporer dans un obj JSON
 	$scope.requeteRestos = function(){
 
@@ -74,19 +73,19 @@ requeteCtrl.controller('requeteCtrl', function($scope, $log, $http, $rootScope, 
 			name: $scope.formData.name
 		};
 
-		// Post the queryBody to the /query POST route to retrieve the filtered results
+		// Poster la variable "lesRequetes" vers la routes POST /requete pour enclecher la recherche filtrée
 		$http.post('/requete', lesRequetes)
 
-			// Store the filtered results in queryResults
+			// Stocker la recherche filtrée dans "lesRequetesResultats"
 			.success(function(lesRequetesResultats){
 
-				// Query Body and Result Logging
+				//Log de "lesRequetesResultats" & "lesRequetes"
 				console.log("lesRequetes:");
 				console.log(lesRequetes);
 				console.log("lesRequetesResultats:");
 				console.log(lesRequetesResultats);
 
-				// Count the number of records retrieved for the panel-footer
+				//Compte le nombre de resultats
 				$scope.queryCount = lesRequetesResultats.length;
 			})
 			.error(function(lesRequetesResultats){
