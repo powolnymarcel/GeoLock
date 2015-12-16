@@ -65,8 +65,8 @@ requeteCtrl.controller('requeteCtrl', function($scope, $log, $http, $rootScope, 
 
 		// Assemblage de l'obj
 		lesRequetes = {
-			longitude: parseFloat($scope.formData.longitude),
-			latitude: parseFloat($scope.formData.latitude),
+			longitude: parseFloat($scope.formData.longit),
+			latitude: parseFloat($scope.formData.latit),
 			distance: parseFloat($scope.formData.distance),
 			pizza: $scope.formData.pizza,
 			frites: $scope.formData.frites,
