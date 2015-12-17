@@ -53,6 +53,7 @@ module.exports = function(app) {
 		var name         	= req.body.name;
 		var pizza            = req.body.pizza;
 		var frites          = req.body.frites;
+		var pita          = req.body.pita;
 		// var tout           = req.body.tout;
 		// var reqVerified     = req.body.reqVerified;
 
@@ -76,12 +77,15 @@ module.exports = function(app) {
 		}
 
 		// ...Filtre par type
-		if(pizza || frites ){
+		if(pizza || frites || pita){
 			if(pizza){
 				query.or([{ 'type': {$regex: new RegExp('^' + pizza.toLowerCase(), 'i')}}]);
 			}
 			if(frites){
 				query.or([{ 'type': {$regex: new RegExp('^' + frites.toLowerCase(), 'i')}}]);
+			}
+			if(pita){
+				query.or([{ 'type': {$regex: new RegExp('^' + pita.toLowerCase(), 'i')}}]);
 			}
 		}
 

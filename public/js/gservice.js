@@ -27,7 +27,7 @@ angular.module('gservice', [])
         // Fonctions
         // --------------------------------------------------------------
 		//Rafraichi la carte avec de nouvelles données. La fonction prend en paramètre la nvlle latitude et longitude
-        googleMapService.refresh = function(latitude, longitude){
+        googleMapService.refresh = function(latitude, longitude,lesRequetesResultats){
 
 			//Vide le tableau contenant les localisations
             locations = [];
@@ -36,7 +36,19 @@ angular.module('gservice', [])
             selectedLat = latitude;
             selectedLong = longitude;
 
-            // Effectue un appel AJAX et recupères les données de la collection resto
+
+			//Si une requete filtrée est appellée dans refresh()
+			if (lesRequetesResultats){
+
+				//Alors convertir la requete filtrée en localisation
+				locations = convertToMapPoints(lesRequetesResultats);
+
+				//Ensuite initialiser la carte
+				initialize(latitude, longitude, true);
+			}
+		else{
+
+			// Effectue un appel AJAX et recupères les données de la collection resto
             $http.get('/restos').success(function(response){
 
 				//Converti le résultats dans un format googleMap
@@ -46,8 +58,8 @@ angular.module('gservice', [])
                 initialize(latitude, longitude);
             }).error(function(){}
 			);
-        };
-
+        }
+	};
         // Fonctions privées
         // --------------------------------------------------------------
 		// Converti les localisation JSON des restaurants en coordonées pour la carte
@@ -84,7 +96,7 @@ angular.module('gservice', [])
     };
 
 //initialiser la carte
-var initialize = function(latitude, longitude) {
+var initialize = function(latitude, longitude,filtre) {
 
 	//Utilise la latitude , longitude selectionnée en point de départ
     var myLatLng = {lat: selectedLat, lng: selectedLong};
@@ -98,6 +110,15 @@ var initialize = function(latitude, longitude) {
             center: myLatLng
         });
     }
+
+
+	//Si une requete filtrée a été utilisée choix de l'iconne
+	if(filtre){
+		icon = "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png";
+	}
+	else{
+		icon = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+	}
 
 	//Itère sur chaque restaurants et place un marqueur
     locations.forEach(function(n, i){

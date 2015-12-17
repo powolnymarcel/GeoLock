@@ -70,6 +70,7 @@ requeteCtrl.controller('requeteCtrl', function($scope, $log, $http, $rootScope, 
 			distance: parseFloat($scope.formData.distance),
 			pizza: $scope.formData.pizza,
 			frites: $scope.formData.frites,
+			pita:$scope.formData.pita,
 			name: $scope.formData.name
 		};
 
@@ -80,10 +81,14 @@ requeteCtrl.controller('requeteCtrl', function($scope, $log, $http, $rootScope, 
 			.success(function(lesRequetesResultats){
 
 				//Log de "lesRequetesResultats" & "lesRequetes"
-				console.log("lesRequetes:");
-				console.log(lesRequetes);
-				console.log("lesRequetesResultats:");
-				console.log(lesRequetesResultats);
+				//console.log("lesRequetes:");
+				//console.log(lesRequetes);
+				//console.log("lesRequetesResultats:");
+				//console.log(lesRequetesResultats);
+
+				gservice.refresh(lesRequetes.latitude, lesRequetes.longitude, lesRequetesResultats);
+
+
 
 				//Compte le nombre de resultats
 				$scope.queryCount = lesRequetesResultats.length;
