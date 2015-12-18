@@ -7,8 +7,15 @@ module.exports = function(app) {
 
 	// Récupère toutes les informations sur les restos dans la BDD
 	app.get('/restaurant/:reference', function(req, res){
-var toto = "ttttttttttt";
-		res.send(toto);
+		var ref = req.params.reference;
+		var query = Restos.findOne({reference: ref}, function(err,obj) { console.log(obj); });
+		query.exec(function(err, restos){
+			if(err)
+				res.send(err);
+
+			// Si pas d'erreurs on répond avec un JSON de tous les restaurants
+			res.json(restos);
+		});
 
 	});
 
