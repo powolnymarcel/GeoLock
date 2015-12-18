@@ -77,7 +77,8 @@ angular.module('gservice', [])
                     '<p><b>nom</b>: ' + resto.nom +
                     '<br><b>type</b>: ' + resto.type +
 					'<br><img src="http://www.pizzaandiamochauny.fr/images/gallery/offres.png" style="width:30% "/>'+
-                    '<br><br><a href="/restaurant/'+resto.nom+'" class="btn btn-default">Voir</a>' +
+					'<br><br><a href="/restaurant/'+resto.nom+'" class="btn btn-default">Voir</a>' +
+					'<br><br><a href="#/restaurant/'+resto.reference+'" class="btn btn-default">'+resto.nom+'</a>' +
 					'</p>';
 
 				//Converti chaque restaurants au format JSON en coordonnées googleMaps (Rappel du format [Lat, Lng] format[c'est inversé...]).
@@ -97,7 +98,7 @@ angular.module('gservice', [])
 
 //initialiser la carte
 var initialize = function(latitude, longitude,filtre) {
-
+var map;
 	//Utilise la latitude , longitude selectionnée en point de départ
     var myLatLng = {lat: selectedLat, lng: selectedLong};
 
@@ -105,7 +106,7 @@ var initialize = function(latitude, longitude,filtre) {
     if (!map){
 
 		//Crée un nouvelle carte et la placer dans le template index.html
-        var map = new google.maps.Map(document.getElementById('map-canvas'), {
+        map = new google.maps.Map(document.getElementById('map-canvas'), {
             zoom: 8,
             center: myLatLng
         });

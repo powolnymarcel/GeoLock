@@ -24,6 +24,7 @@ requeteCtrl.controller('requeteCtrl', function($scope, $log, $http, $rootScope, 
 		console.log(place);
 		console.log(place.geometry.location.lat());
 		console.log(place.geometry.location.lng());
+		//Indiquer dans les input les coordonnées
 		$scope.formData.latit=place.geometry.location.lat();
 		$scope.formData.longit=place.geometry.location.lng();
 		$scope.formData.htmlverified = "Selection manuelle activée.";
@@ -41,7 +42,7 @@ requeteCtrl.controller('requeteCtrl', function($scope, $log, $http, $rootScope, 
 	// Fonctions
 	// ----------------------------------------------------------------------------
 
-	// Récupérer les coordonées précise de l'utilisateur, basée sur la permission
+	// Récupérer les coordonées précise de l'utilisateur, basée sur la permission de geolocation
 	geolocation.getLocation().then(function(data){
 		coords = {lat:data.coords.latitude, long:data.coords.longitude};
 
@@ -62,6 +63,26 @@ requeteCtrl.controller('requeteCtrl', function($scope, $log, $http, $rootScope, 
 
 	//Recuperer les paramètres de recherche et les incorporer dans un obj JSON
 	$scope.requeteRestos = function(){
+		if(!$scope.formData.latit){
+			$scope.formData.latit = 50.832;
+			console.log('****LATITUDE:***********');
+			console.log($scope.formData.latit);
+		}
+
+		if(!$scope.formData.longit){
+			$scope.formData.longit = 4.366;
+			console.log('****LONGITUDE:***********');
+			console.log($scope.formData.longit);
+		}
+		if(!$scope.formData.distance){
+			$scope.formData.distance =6;
+		}
+
+		console.log('****distance:***********');
+		console.log($scope.formData.distance);
+		console.log('****distance:***********');
+
+
 
 		// Assemblage de l'obj
 		lesRequetes = {
@@ -73,6 +94,7 @@ requeteCtrl.controller('requeteCtrl', function($scope, $log, $http, $rootScope, 
 			pita:$scope.formData.pita,
 			name: $scope.formData.name
 		};
+		console.log(lesRequetes);
 
 		// Poster la variable "lesRequetes" vers la routes POST /requete pour enclecher la recherche filtrée
 		$http.post('/requete', lesRequetes)

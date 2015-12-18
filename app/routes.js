@@ -5,7 +5,15 @@ var Restos            = require('./model.js');
 // Definition des routes
 module.exports = function(app) {
 
-    //
+	// Récupère toutes les informations sur les restos dans la BDD
+	app.get('/restaurant/:reference', function(req, res){
+var toto = "ttttttttttt";
+		res.send(toto);
+
+	});
+
+
+	//
     // --------------------------------------------------------
     // Récupère toutes les informations sur les restos dans la BDD
     app.get('/restos', function(req, res){
@@ -45,6 +53,8 @@ module.exports = function(app) {
 
 	//Récupère les enregistrements JSON de tous les restaurants qui répondent aux reglès de "requetage" ci dessous
 	app.post('/requete/', function(req, res){
+
+
 
 		//Récupérer tous les parametres de requete contenue dans le body de la réponse
 		var lat             = req.body.latitude;
@@ -110,8 +120,6 @@ module.exports = function(app) {
 	//  if(reqVerified){
 	//  	query = query.where('htmlverified').equals("Yep (Thanks for giving us real data!)");
 	//  }
-
-
 
 
 

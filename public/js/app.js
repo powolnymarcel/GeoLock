@@ -1,5 +1,5 @@
 //Déclare le module initial 'geoloc2', on injecte les dépendances necessaires
-var app = angular.module('geoLoc2', ['addCtrl','requeteCtrl', 'geolocation', 'gservice', 'ngRoute'])
+var app = angular.module('geoLoc2', ['addCtrl','requeteCtrl','xxxCtrl', 'geolocation', 'gservice', 'ngRoute'])
 
 
 //Configuration du routing au sein d'Angular, utilisation de la vue et du Ctrl nécessaire
@@ -14,6 +14,12 @@ var app = angular.module('geoLoc2', ['addCtrl','requeteCtrl', 'geolocation', 'gs
 	}).when('/trouver', {
 		templateUrl: 'templates/requeteForm.html',
 		controller: 'requeteCtrl'
+
+		})
+		.when('/restaurant/:reference', {
+			templateUrl: 'templates/xxx.html',
+			controller: 'xxxCtrl'
+
 
 		})
 		.otherwise({redirectTo:'/rejoindre'})
