@@ -92,7 +92,8 @@ requeteCtrl.controller('requeteCtrl', function($scope, $log, $http, $rootScope, 
 			pizza: $scope.formData.pizza,
 			frites: $scope.formData.frites,
 			pita:$scope.formData.pita,
-			name: $scope.formData.name
+			name: $scope.formData.name,
+			enBelgique: $scope.formData.enBelgique
 		};
 		console.log(lesRequetes);
 

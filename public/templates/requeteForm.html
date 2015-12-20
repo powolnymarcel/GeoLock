@@ -19,8 +19,6 @@
 	<div class="range-slider">
 		<input class="input-range" type="range" value="6" min="1" max="20" ng-model="formData.distance">
 		<span class="range-value"></span>
-		<input type="submit" value="GO" id="go">
-
 	</div>
 	<br>
 	<label>Type de cuisine</label>
@@ -42,6 +40,10 @@
 		<label class="checkbox-inline">
 			<input type="checkbox" name="optionsRadios" id="checkfemale" value="Pita" ng-model="formData.pita" ng-true-value="'Pita'">
 			Pita
+		</label>
+		<label class="checkbox-inline">
+			<input type="checkbox" name="optionsRadios" id="checkfemale" value="En Belgique" ng-model="formData.enBelgique" ng-true-value="'En Belgique'">
+			Tout les fast-food
 		</label>
 		<!--
 		<label class="checkbox-inline">

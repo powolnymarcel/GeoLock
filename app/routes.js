@@ -71,11 +71,20 @@ module.exports = function(app) {
 		var pizza            = req.body.pizza;
 		var frites          = req.body.frites;
 		var pita          = req.body.pita;
+		var enBelgique = req.body.enBelgique;
 		// var tout           = req.body.tout;
 		// var reqVerified     = req.body.reqVerified;
 
 		// Initialize une requete Mongoose génerique. La requete dépendra du body du POST
 		var query = Restos.find({});
+
+		if(enBelgique){
+			var distance        = 5555;
+
+			query = query.where('location').near({ center: {type: 'Point', coordinates: [long, lat]},
+				//Conversion des metres en miles. Spécification de la géométrie "spherical" pour le globe
+				maxDistance: distance * 1609.34, spherical: true});
+		}
 
 		// Filtrer par distance maximale (conversion de miles en metre -- SE DOCUMENTER LA DESSUS)
 		if(distance){
