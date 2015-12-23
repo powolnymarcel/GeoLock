@@ -64,13 +64,13 @@ requeteCtrl.controller('requeteCtrl', function($scope, $log, $http, $rootScope, 
 	//Recuperer les paramètres de recherche et les incorporer dans un obj JSON
 	$scope.requeteRestos = function(){
 		if(!$scope.formData.latit){
-			$scope.formData.latit = 50.832;
+			$scope.formData.latit = $scope.formData.latitude;
 			console.log('****LATITUDE:***********');
 			console.log($scope.formData.latit);
 		}
 
 		if(!$scope.formData.longit){
-			$scope.formData.longit = 4.366;
+			$scope.formData.longit = $scope.formData.longitude;
 			console.log('****LONGITUDE:***********');
 			console.log($scope.formData.longit);
 		}
@@ -110,8 +110,6 @@ requeteCtrl.controller('requeteCtrl', function($scope, $log, $http, $rootScope, 
 				//console.log(lesRequetesResultats);
 
 				gservice.refresh(lesRequetes.latitude, lesRequetes.longitude, lesRequetesResultats);
-
-
 
 				//Compte le nombre de resultats
 				$scope.queryCount = lesRequetesResultats.length;
